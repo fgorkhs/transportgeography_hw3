@@ -1,0 +1,27 @@
+---
+title: "question2 part 2"
+author: "Morley J Weston"
+date: "12/30/2019"
+output: html_document
+---
+
+```{r}
+dat <- read.csv('electoral_data_p2.csv', header=TRUE)
+head(dat)
+```
+
+```{r}
+mylogit <- glm(election_result ~ pop_density + percent_urban + percent_educated + disposable_income + first_level_employment + Percent_foreign, data = dat, family = "binomial")
+summary(mylogit)
+```
+```{r}
+confint.default(mylogit)
+```
+```{r}
+exp(coef(mylogit))
+```
+```{r}
+exp(cbind(OR = coef(mylogit), confint(mylogit)))
+```
+
+

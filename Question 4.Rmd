@@ -1,0 +1,22 @@
+---
+title: "Question 4"
+author: "Morley J Weston"
+date: "12/30/2019"
+output: html_document
+---
+
+```{r}
+dat <- read.csv('q4data_simplified2.csv', header=TRUE)
+head(dat)
+```
+```{r}
+grav_ols <- lm(plastics_trade ~ population + distance, data = dat)
+summary(grav_ols)
+```
+
+```{r}
+grav_ols <- lm(machine_trade ~ population + distance, data = dat)
+summary(grav_ols)
+```
+
+

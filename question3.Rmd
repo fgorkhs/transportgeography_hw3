@@ -1,0 +1,30 @@
+---
+title: "Question 3"
+author: "Morley J Weston"
+date: "12/26/2019"
+output: html_document
+---
+
+
+```{r}
+require(AER)
+```
+
+```{r}
+dat <- read.csv('q3data.csv', header=TRUE)
+head(dat)
+```
+
+```{r}
+ols1_fit <- lm(population ~ E2 + E3 + accessibility, data=dat)
+summary(ols1_fit)
+
+```
+
+```{r}
+ols_2stage_fit <- ivreg(population ~ accessibility + E2| accessibility + E2  + E3, data=dat)
+
+summary(ols_2stage_fit)
+
+```
+

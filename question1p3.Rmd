@@ -1,0 +1,44 @@
+---
+title: "Question 1 Part 3"
+author: "Morley J Wesotn"
+date: "12/23/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+require(foreign)
+require(ggplot2)
+require(MASS)
+require(Hmisc)
+require(reshape2)
+```
+```{r}
+dat <- read.csv('schooldata_parsed.csv', header=TRUE)
+head(dat)
+```
+
+
+```{r}
+logitr <- polr(as.ordered(grade) ~ sex + household_income + school_distance + tuition + attitude, data = dat, Hess=TRUE)
+summary(logitr)
+```
+```{r}
+(ctable <- coef(summary(logitr)))
+p <- pnorm(abs(ctable[, "t value"]), lower.tail = FALSE) * 2
+(ctable <- cbind(ctable, "p value" = p))
+```
+
+
+```{r}
+(ci <- confint(logitr))
+```
+
+```{r}
+exp(cbind(OR = coef(logitr), ci))
+
+```
+

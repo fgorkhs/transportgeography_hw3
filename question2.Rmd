@@ -1,0 +1,35 @@
+---
+title: "Question 2"
+author: "Morley J Wesotn"
+date: "12/26/2019"
+output: html_document
+---
+
+```{r}
+require(foreign)
+require(ggplot2)
+require(MASS)
+require(Hmisc)
+require(reshape2)
+```
+
+```{r}
+dat <- read.csv('electoral_data.csv', header=TRUE)
+head(dat)
+```
+
+```{r}
+mylogit <- glm(election_result ~ pop_density + percent_urban + percent_educated + disposable_income + first_level_employment, data = dat, family = "binomial")
+summary(mylogit)
+```
+
+```{r}
+confint.default(mylogit)
+```
+
+```{r}
+exp(coef(mylogit))
+```
+```{r}
+exp(cbind(OR = coef(mylogit), confint(mylogit)))
+```
